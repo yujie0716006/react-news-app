@@ -57,6 +57,7 @@ componentDidMount(){
   render (){
     const {isCollect,isComments,previewVisible, previewImage, fileList}=this.state;
     const {uniquekey}=this.props.params;
+
     //指定收藏的列表
     const myCollection= !isCollect
       ? <h2>暂时还没有收藏，赶快去收藏吧</h2>

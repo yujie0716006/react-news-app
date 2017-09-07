@@ -26,20 +26,21 @@ class MobileNewsHeader extends Component{
   //  取消默认行为
     event.preventDefault();
   //  设置登录或是注册的代码
-    const {username,password,r_username,r_password,rr_password}=this.props.form.getFieldsValue;
+    let {username,password,r_username,r_password,rr_password}=this.props.form.getFieldsValue();
     const action=isRegister ? "register" : "login";
-    const url=`http://newsapi.gugujiankong.com/Handler.ashx?action=${action}&username=${username}&password=${password}
-    &r_userName=${r_username}&r_password=${r_password}&r_confirmPassword=${rr_password}`;
+     const url=`http://newsapi.gugujiankong.com/Handler.ashx?action=${action}&username=${username}&password=${password}&r_userName=${r_username}&r_password=${r_password}&r_confirmPassword=${rr_password}`;
     axios.get(url)
       .then(response => {
         const result = response.data;
         if (isRegister) {
           message.success('注册成功')
         } else {
-          if (!result) { //登陆失败
-            message.error('登陆失败')
+          if (!result) { //登陆失败,因为result中没有收集到任何的数据所以失败了
+            message.error('登陆失败');
           } else {
             message.success('登陆成功');
+            console.log("登陆成功");
+            console.log(result);
             const userId = result.UserId;
             const username = result.NickUserName;
             //更新状态
@@ -50,6 +51,7 @@ class MobileNewsHeader extends Component{
           }
         }
       })
+
     this.showModal(false);
   };
   change = () => {

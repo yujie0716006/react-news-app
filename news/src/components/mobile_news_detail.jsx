@@ -2,7 +2,7 @@ import React,{Component} from "react";
 import {render} from "react-dom";
 import axios from "axios";
 import {BackTop} from "antd";
-import MobileComments from "./news_comments";
+import NewsComments from "./news_comments";
 export default class MobileNewsDetail extends Component{
   state={
     newsList:{}
@@ -15,16 +15,17 @@ export default class MobileNewsDetail extends Component{
       .then(response => {
         const newsList=response.data;
         this.setState({newsList});
-        // console.log(newsList);
+        console.log(newsList);
       })
   }
   render (){
-    const {newsList,uniquekey}=this.state;
+    const {newsList}=this.state;
+    const {uniquekey}=this.props.params;
     return (
       <div>
         <div dangerouslySetInnerHTML={{__html:newsList.pagecontent}}></div>
         <BackTop />
-        <MobileComments uniquekey={uniquekey}/>
+        <NewsComments uniquekey={uniquekey}/>
       </div>
     )
   }
